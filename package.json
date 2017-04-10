@@ -1,9 +1,9 @@
 {
   "name": "quilk-frontend-router",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "description": "A lightweight router for es6. No dependencies. Works perfectly with jQuery and Vanilla JS",
-  "main": "lib/quilk-frontend-router.js",
-  "module": "lib/quilk-frontend-router.js",
+  "main": "dist/quilk-frontend-router.js",
+  "module": "dist/quilk-frontend-router.js",
   "scripts": {
     "test": "echo \"Error: no test specified. Wanna write some be my guest, i do not have the time right now :)\" && exit 1"
   },
@@ -23,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/jdcrecur/quilk-frontend-router/issues"
   },
-  "homepage": "https://github.com/jdcrecur/quilk-frontend-router"
+  "homepage": "https://github.com/jdcrecur/quilk-frontend-router",
+  "devDependencies": {
+    "babel-preset-es2015": "^6.24.1"
+  }
 }
