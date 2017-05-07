@@ -1,6 +1,6 @@
 # quilk-frontend-router 
 
-A simple router for your custom js apps. A simple, small and fast router with a tiny production weight of 2kb, also with zero dependencies.
+A simple router for your custom js apps. A simple, small and fast router with a tiny production weight of 1.3kb, also with zero dependencies.
 
 
 ## How to use it
