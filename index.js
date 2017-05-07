@@ -1,9 +1,3 @@
-(function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-	typeof define === 'function' && define.amd ? define(factory) :
-	(global.QuilkFrontendRouter = factory());
-}(this, (function () {
-
 var QuilkFrontendRouter = function QuilkFrontendRouter( routesObject ) {
     var this$1 = this;
 
@@ -118,7 +112,5 @@ QuilkFrontendRouter.prototype.trimEnd = function trimEnd ( str, str2Trim ) {
     return str;
 };
 
-return QuilkFrontendRouter;
-
-})));
-//# sourceMappingURL=quilk-frontend-router.js.map
+module.exports = QuilkFrontendRouter;
+//# sourceMappingURL=index.js.map
