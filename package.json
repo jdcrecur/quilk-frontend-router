@@ -1,6 +1,6 @@
 {
   "name": "quilk-frontend-router",
-  "version": "0.0.5",
+  "version": "1.0.03",
   "description": "A lightweight router for es6. No dependencies. Works perfectly with jQuery and Vanilla JS",
   "main": "dist/quilk-frontend-router.js",
   "module": "dist/quilk-frontend-router.js",
@@ -16,7 +16,8 @@
     "lightweight",
     "javascript",
     "simple",
-    "plain"
+    "plain",
+    "es6"
   ],
   "author": "John Carmichael <johncarmichael1984@gmail.com",
   "license": "MIT",

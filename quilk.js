@@ -13,13 +13,13 @@ module.exports = {
       }
   ],
 
-  "dont_watch": [
+  dont_watch: [
     "dist"
   ],
 
-  "release_commands_or_modules": {
-    "prod":{
-      "post": [
+  release_commands_or_modules: {
+    prod:{
+      post: [
           {
               name: "minify the app js",
               module: "node_minify",
@@ -31,11 +31,11 @@ module.exports = {
     }
   },
 
-  "developers" : {
-    "default" : {
-      "platform" : "linux",
-      "notifier" : {
-        "on"   : false
+  developers : {
+    default : {
+      platform : "linux",
+      notifier : {
+        on   : false
       }
     }
   }
