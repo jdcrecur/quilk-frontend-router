@@ -32,8 +32,14 @@ QuilkFrontendRouter.prototype.run_attribute_matchers = function run_attribute_ma
     var this$1 = this;
 
   var $ = window.$;
-  attributesObject.forEach(function (values, attr) {
-    values.forEach(function (constructors, value) {
+
+  for (var key in attributesObject) {
+    var values = attributesObject[key];
+    var attr = key;
+
+    for (var value in values) {
+      var constructors = values[value];
+
       if (value === '*') {
         this$1.run_attribute_constructors(constructors);
       } else {
@@ -50,12 +56,12 @@ QuilkFrontendRouter.prototype.run_attribute_matchers = function run_attribute_ma
             var selector$1 = valueArr.join(', #');
             if ($(selector$1).length > 0) { this$1.run_attribute_constructors(constructors); }
           }
-            break;
+            break
           default : {
             var selector$2 = '';
-            valueArr.forEach(function (attrVal){
-              selector$2 += '*['+attr+'='+attrVal+'], ';
-            });
+            for (var i = 0; i < valueArr.length; ++i) {
+              selector$2 += '*[' + attr + '=' + valueArr[i] + '], ';
+            }
             selector$2 = selector$2.slice(0, -2);
 
             if ($(selector$2).length > 0) {
@@ -64,8 +70,8 @@ QuilkFrontendRouter.prototype.run_attribute_matchers = function run_attribute_ma
           }
         }
       }
-    });
-  });
+    }
+  }
 };
 
 /**
@@ -76,9 +82,9 @@ QuilkFrontendRouter.prototype.run_attribute_matchers = function run_attribute_ma
 QuilkFrontendRouter.prototype.run_attribute_constructors = function run_attribute_constructors (constructorsArr) {
     var this$1 = this;
 
-  constructorsArr.forEach(function (construct, i) {
-    this$1.start_instance(construct);
-  });
+  for (var i = 0; i < constructorsArr.length; ++i) {
+    this$1.start_instance(constructorsArr[i]);
+  }
 };
 
 /**
