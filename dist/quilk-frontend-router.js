@@ -4,28 +4,41 @@
 	(global.QuilkFrontendRouter = factory());
 }(this, (function () {
 
-var QuilkFrontendRouter = function QuilkFrontendRouter (routesObject) {
+var QuilkFrontendRouter = function QuilkFrontendRouter (routesObject, verbose) {
   var this$1 = this;
+  if ( verbose === void 0 ) verbose = false;
+
+
+  this.verbose_mode = verbose;
 
   var path = this.trimEnd(String(window.location.pathname), '/');
   for (var key in routesObject) {
 
     if (Array.isArray(routesObject[key])) {
+      this$1.log('Simple numeric array path matching');
       this$1.run_path_matchers(routesObject, path, key);
     } else {
       if (key === 'path') {
+        this$1.log('Key hit "path", passing "path" object to the routing matcher');
         for (var subkey in routesObject[key]) {
           this$1.run_path_matchers(routesObject[key], path, subkey);
         }
-      } else {
+      } else if( key === 'attributes' ) {
         // check we have jquery else alert an error
         if (typeof window.$ === 'undefined') {
           alert('To use attribute selection with the QuilkFrontendRouter please ensure you load in jquery to the window object.');
         } else {
+          this$1.log('Key hit "attributes", passing "attributes" object to the routing matcher');
           this$1.run_attribute_matchers(routesObject[key]);
         }
       }
     }
+  }
+};
+
+QuilkFrontendRouter.prototype.log = function log (msg) {
+  if (this.verbose_mode === true) {
+    console.log('QuilkFrontendRouter message: ', msg);
   }
 };
 
@@ -47,33 +60,38 @@ QuilkFrontendRouter.prototype.run_attribute_matchers = function run_attribute_ma
       var constructors = values[value];
 
       if (value === '*') {
-        this$1.run_attribute_constructors(constructors);
+        if( $('*['+attr+']').length > 0 ){
+          this$1.log('Wildcard hit for attr "'+attr+'"');
+          this$1.run_attribute_constructors(constructors);
+        }
       } else {
         var valueArr = value.split(' ');
 
         // run against classes
+        var selector = '';
         switch (attr) {
           case 'class' : {
-            var selector = valueArr.join(', .');
-            if ($(selector).length > 0) { this$1.run_attribute_constructors(constructors); }
+            for (var i = 0; i < valueArr.length; ++i) {
+              selector += '.' + valueArr[i] + ', ';
+            }
           }
             break
           case 'id' : {
-            var selector$1 = valueArr.join(', #');
-            if ($(selector$1).length > 0) { this$1.run_attribute_constructors(constructors); }
+            for (var i$1 = 0; i$1 < valueArr.length; ++i$1) {
+              selector += '#' + valueArr[i$1] + ', ';
+            }
           }
             break
           default : {
-            var selector$2 = '';
-            for (var i = 0; i < valueArr.length; ++i) {
-              selector$2 += '*[' + attr + '=' + valueArr[i] + '], ';
-            }
-            selector$2 = selector$2.slice(0, -2);
-
-            if ($(selector$2).length > 0) {
-              this$1.run_attribute_constructors(constructors);
+            for (var i$2 = 0; i$2 < valueArr.length; ++i$2) {
+              selector += '*[' + attr + '=' + valueArr[i$2] + '], ';
             }
           }
+        }
+        selector = selector.slice(0, -2);
+        if ($(selector).length > 0) {
+          this$1.log('Attr + val hit: '+selector);
+          this$1.run_attribute_constructors(constructors);
         }
       }
     }
