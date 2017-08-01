@@ -26,7 +26,6 @@
     "url": "https://github.com/jdcrecur/quilk-frontend-router/issues"
   },
   "homepage": "https://github.com/jdcrecur/quilk-frontend-router",
-
   "devDependencies": {
     "babel-preset-es2015": "^6.24.1",
     "buble": "^0.15.2",
