@@ -17,7 +17,7 @@ var QuilkFrontendRouter = function QuilkFrontendRouter (routesObject, verbose) {
         for (var subkey in routesObject[key]) {
           this$1.run_path_matchers(routesObject[key], path, subkey);
         }
-      } else if( key === 'attributes' ) {
+      } else if (key === 'attributes') {
         // check we have jquery else alert an error
         if (typeof window.$ === 'undefined') {
           alert('To use attribute selection with the QuilkFrontendRouter please ensure you load in jquery to the window object.');
@@ -54,8 +54,8 @@ QuilkFrontendRouter.prototype.run_attribute_matchers = function run_attribute_ma
       var constructors = values[value];
 
       if (value === '*') {
-        if( $('*['+attr+']').length > 0 ){
-          this$1.log('Wildcard hit for attr "'+attr+'"');
+        if ($('*[' + attr + ']').length > 0) {
+          this$1.log('Wildcard hit for attr "' + attr + '"');
           this$1.run_attribute_constructors(constructors);
         }
       } else {
@@ -84,7 +84,7 @@ QuilkFrontendRouter.prototype.run_attribute_matchers = function run_attribute_ma
         }
         selector = selector.slice(0, -2);
         if ($(selector).length > 0) {
-          this$1.log('Attr + val hit: '+selector);
+          this$1.log('Attr + val hit: ' + selector);
           this$1.run_attribute_constructors(constructors);
         }
       }
@@ -128,10 +128,15 @@ QuilkFrontendRouter.prototype.run_path_matchers = function run_path_matchers (ro
  * @param init
  */
 QuilkFrontendRouter.prototype.start_instance = function start_instance (init) {
-  try {
-    new init;
-  } catch (e) {
-    console.error(e);
+  if (!this.instances_run) { this.instances_run = []; }
+
+  if (this.instances_run.indexOf(init) === -1) {
+    try {
+      new init;
+    } catch (e) {
+      console.error(e);
+    }
+    this.instances_run.push(init);
   }
 };
 
@@ -179,7 +184,7 @@ QuilkFrontendRouter.prototype.key_to_paths = function key_to_paths (key) {
     var this$1 = this;
 
   var key_parts = key.split('(');
-  var ret = [this.trimEnd(key_parts[0], '/')];
+  var ret     = [this.trimEnd(key_parts[0], '/')];
   //walk over each provided segment in the () | separated params, ensuring the last ) char is stripped
   key_parts[1].slice(0, -1).split('|').forEach(function (seg) {
     ret.push(this$1.trimEnd(key_parts[0] + seg, '/'));
