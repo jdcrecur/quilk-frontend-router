@@ -8,8 +8,8 @@ module.exports = {
           },
           extensions: ['.js'],
           debug: false,
-          entries: "lib/quilk-frontend-router.js",
-          target: '/dist/quilk-frontend-router.js'
+          entries: "test.js",
+          target: 'test2.js'
       }
   ],
 
